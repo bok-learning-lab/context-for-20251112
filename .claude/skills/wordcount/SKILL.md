@@ -77,7 +77,8 @@ Handle these gracefully and suggest corrections to the user.
 
 ## Tips
 
-- The script is executable (has shebang), so use `./scripts/wordcount.py` or the full path
+- The script is executable (has shebang), so use the full path from the skill's scripts folder
 - For large directories, let the user know this may take a moment
 - Consider suggesting common paths like `_context/documentation/` for documentation analysis
 - When showing results, provide context about what was counted (e.g., "across 47 markdown files")
+- The script path relative to skill base: `scripts/wordcount.py`
