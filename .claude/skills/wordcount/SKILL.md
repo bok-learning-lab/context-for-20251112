@@ -18,7 +18,7 @@ Use this skill when the user:
 
 ## How It Works
 
-The skill uses the `scripts/wordcount.py` utility which:
+The skill uses the `scripts/wordcount.py` utility located in this skill's folder which:
 - Counts words in `.md`, `.mdx`, and `.txt` files
 - Works on both individual files and entire directories
 - Recursively processes all matching files in subdirectories
@@ -30,27 +30,28 @@ When the user requests word count information:
 
 1. Identify the target path (file or folder) from the user's request
 2. If the path is relative, resolve it relative to the project root: `/Users/metal/Development/context-for-20251112/`
-3. Run the wordcount script using the Bash tool:
+3. Get the base directory path from the skill context (provided in the skill invocation message)
+4. Run the wordcount script using the Bash tool:
    ```bash
-   /Users/metal/Development/context-for-20251112/scripts/wordcount.py <path>
+   <base_directory>/scripts/wordcount.py <path>
    ```
-4. Return the results to the user in a clear format
+5. Return the results to the user in a clear format
 
 ## Examples
 
 ### Count words in a single file
 ```bash
-./scripts/wordcount.py CLAUDE.md
+/Users/metal/Development/context-for-20251112/.claude/skills/wordcount/scripts/wordcount.py CLAUDE.md
 ```
 
 ### Count words in a directory
 ```bash
-./scripts/wordcount.py _context/documentation/anthropic
+/Users/metal/Development/context-for-20251112/.claude/skills/wordcount/scripts/wordcount.py _context/documentation/anthropic
 ```
 
 ### Count words in entire documentation collection
 ```bash
-./scripts/wordcount.py _context/documentation
+/Users/metal/Development/context-for-20251112/.claude/skills/wordcount/scripts/wordcount.py _context/documentation
 ```
 
 ## Expected Output
