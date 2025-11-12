@@ -30,17 +30,19 @@ When the user requests word count information:
 
 1. Identify the target path (file or folder) from the user's request
 2. If the path is relative, resolve it relative to the project root: `/Users/metal/Development/context-for-20251112/`
-3. Get the base directory path from the skill context (provided in the skill invocation message)
-4. Run the wordcount script using the Bash tool:
+3. The skill's base directory is provided in the skill invocation message
+4. Run the wordcount script using the Bash tool with the relative path:
    ```bash
    <base_directory>/scripts/wordcount.py <path>
    ```
+   Where `<base_directory>` is extracted from the skill invocation message
 5. Return the results to the user in a clear format
 
 ## Examples
 
 ### Count words in a single file
 ```bash
+# If base directory is /Users/metal/Development/context-for-20251112/.claude/skills/wordcount
 /Users/metal/Development/context-for-20251112/.claude/skills/wordcount/scripts/wordcount.py CLAUDE.md
 ```
 
@@ -53,6 +55,8 @@ When the user requests word count information:
 ```bash
 /Users/metal/Development/context-for-20251112/.claude/skills/wordcount/scripts/wordcount.py _context/documentation
 ```
+
+Note: The base directory path is provided when the skill is invoked and should be used to construct the full path to `scripts/wordcount.py`.
 
 ## Expected Output
 
@@ -77,8 +81,9 @@ Handle these gracefully and suggest corrections to the user.
 
 ## Tips
 
-- The script is executable (has shebang), so use the full path from the skill's scripts folder
+- The script is executable (has shebang)
+- Construct the full path as: `{base_directory}/scripts/wordcount.py` where base_directory comes from the skill invocation
 - For large directories, let the user know this may take a moment
 - Consider suggesting common paths like `_context/documentation/` for documentation analysis
 - When showing results, provide context about what was counted (e.g., "across 47 markdown files")
-- The script path relative to skill base: `scripts/wordcount.py`
+- Script location within skill: `scripts/wordcount.py` (relative to skill base)
